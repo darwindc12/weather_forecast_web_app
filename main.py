@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.express as px
+from dataprocess import get_data
 
 
 st.title("Weather Forecast for the Next Days")
@@ -11,14 +12,21 @@ view_by = st.selectbox("Select data to view",
 st.subheader(f"{view_by} for the next {day} days in {place}")
 
 
-def get_data(day_local):
-    dates = ["2022-02-06", "2022-05-01", "2022-0712"]
-    temperature = [10, 11, 12]
-    temperature = [day * i for i in temperature]
-    return dates, temperature
 
+if place:
+    
+    filtered_data = get_data(place, day)
 
-d, t = get_data(day)
+    if view_by == "Temperature":
+        temperature = [dict['main']['temp'] for dict in filtered_data]
+        dates = [dict['dt_txt'] for dict in filtered_data]
+        figure = px.line(x=dates, y=temperature, labels={"x": "Date", "y": "Temperature(c)"})
+        st.plotly_chart(figure)
 
-figure = px.line(x=d, y=t, labels={"x": "Date", "y": "Temperature(c)"})
-st.plotly_chart(figure)
+    if view_by == "Sky":
+        images = {"Clear": "images/clear.png", "Clouds": "images/cloud.png",
+                  "Rain": "images/rain.png", "Snow": "images/snow.png"}
+        sky = [dict['weather'][0]['main'] for dict in filtered_data]
+        image_paths = [images[condition] for condition in sky]
+        st.image(image_paths, width=115)
+        

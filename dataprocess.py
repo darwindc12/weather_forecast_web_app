@@ -10,10 +10,6 @@ def get_data(place, day=None, view_by=None):
     data_filtered = data['list']
     nd = 8 * day
     data_filtered = data_filtered[:nd]
-    if view_by == 'Temperature':
-        data_filtered = [dict['main']['temp'] for dict in data_filtered]
-    if view_by == 'Sky':
-        data_filtered = [dict['weather'][0]['main'] for dict in data_filtered]
     return data_filtered
 
 
