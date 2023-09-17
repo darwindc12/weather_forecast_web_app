@@ -6,7 +6,7 @@ This code uses the streamlit and plotly.express libraries to create a weather fo
 - You need to have an OpenWeatherMap API key. Sign up for a free key from https://openweathermap.org/price and replace the get_data() function with your own function to get the forecast data from the OpenWeatherMap API.
 
 # Usage
-- Run the script using streamlit run weather_forecast.py.
+- Run the script using streamlit run main.py.
 - In the text box, enter a location for which you want to see the forecast.
 - Use the slider to choose the number of days for which you want to see the forecast.
 - Select whether you want to see the forecast by temperature or sky condition.
